@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #222;
+    color: white;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: darkgray;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+}
+
+.cell.winner {
+    background-color: green;
+}
+
+.cell.tie {
+    background-color: orange;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    background-color: #f04;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #d03;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="status">Tic-Tac-Toe</h1>
+        <div class="board" id="board">
+            <!-- 3x3 grid dynamically generated -->
+        </div>
+        <button id="reset">Reset Game</button>
+    </div>
+    <script>const board = document.getElementById("board");
+const status = document.getElementById("status");
+const resetButton = document.getElementById("reset");
+
+let currentPlayer = "X";
+let gameOver = false;
+let turns = 0;
+let cells = [];
+
+// Create board dynamically
+for (let r = 0; r < 3; r++) {
+    for (let c = 0; c < 3; c++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.dataset.row = r;
+        cell.dataset.col = c;
+        cell.addEventListener("click", handleMove);
+        board.appendChild(cell);
+        cells.push(cell);
+    }
+}
+
+function handleMove(event) {
+    if (gameOver) return;
+    const cell = event.target;
+    if (cell.textContent !== "") return;
+
+    cell.textContent = currentPlayer;
+    turns++;
+
+    if (checkWinner()) {
+        status.textContent = `${currentPlayer} is the winner!`;
+        gameOver = true;
+    } else if (turns === 9) {
+        status.textContent = "It's a Tie!";
+        cells.forEach(c => c.classList.add("tie"));
+        gameOver = true;
+    } else {
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+        status.textContent = `${currentPlayer}'s Turn`;
+    }
+}
+
+function checkWinner() {
+    const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+        [0, 4, 8], [2, 4, 6]             // Diagonals
+    ];
+
+    for (let pattern of winPatterns) {
+        const [a, b, c] = pattern;
+        if (
+            cells[a].textContent &&
+            cells[a].textContent === cells[b].textContent &&
+            cells[b].textContent === cells[c].textContent
+        ) {
+            cells[a].classList.add("winner");
+            cells[b].classList.add("winner");
+            cells[c].classList.add("winner");
+            return true;
+        }
+    }
+    return false;
+}
+
+resetButton.addEventListener("click", () => {
+    cells.forEach(cell => {
+        cell.textContent = "";
+        cell.classList.remove("winner", "tie");
+    });
+    currentPlayer = "X";
+    gameOver = false;
+    turns = 0;
+    status.textContent = "Tic-Tac-Toe";
+});
+</script>
+</body>
+</html>

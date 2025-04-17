@@ -1,0 +1,73 @@
+<html>
+<head>
+    <title>Login Page</title>
+    <style>
+        body {
+            background-image: url('Images/game background.jpg');
+            font-family: 'Verdana', sans-serif;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        div {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+            width: 350px;
+            text-align: center;
+        }
+
+        h1, label {
+            color: #00ff00;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        h4{
+            color: white;
+        }
+
+        input[type="submit"], input[type="reset"] {
+            width: 45%;
+            padding: 10px;
+            margin: 10px 5px;
+            background-color: #00ff00;
+            border: none;
+            border-radius: 5px;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover, input[type="reset"]:hover {
+            background-color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Login</h1>
+        <form action="Login.jsp" method="post">
+            <label>Enter User Name:</label>
+            <input type="text" name="txtName" required><br>
+
+            <label>Enter Password:</label>
+            <input type="password" name="txtPass" required><br>
+
+            <input type="reset" value="RESET">
+            <input type="submit" value="LOGIN">
+            <h4> Don't have an account? <a href="index.html">Register </a></h4>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Website</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('Images/UI.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat; 
+            height: 100vh;
+        }
+        .btn-container {
+            position: fixed; 
+            bottom: 30px;
+            right: 190px;
+            display: flex;
+            gap: 20px;
+            z-index: 10; 
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 16px;
+            background-color: #1e90ff; 
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none; 
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .btn:hover {
+           background-color: #ff4500; 
+           color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="btn-container">
+        <a href="index.html" class="btn">Create Account</a>
+        <a href="Login.html" class="btn">Login</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Breakout</title>
+        <style>
+            body {
+                text-align: center;
+            }
+
+            #board {
+                background-color: black;
+                border-top: 5px solid skyblue;
+                border-left: 5px solid skyblue;
+                border-right: 5px solid skyblue;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="board"></canvas>
+        <script>
+            // Board
+            let board;
+            let boardWidth = 500;
+            let boardHeight = 500;
+            let context;
+
+            // Player Paddle
+            let playerWidth = 80;
+            let playerHeight = 10;
+            let playerVelocityX = 10;
+
+            let player = {
+                x: boardWidth / 2 - playerWidth / 2,
+                y: boardHeight - playerHeight - 5,
+                width: playerWidth,
+                height: playerHeight,
+                velocityX: playerVelocityX
+            };
+
+            // Ball
+            let ballWidth = 10;
+            let ballHeight = 10;
+            let ballVelocityX = 3;
+            let ballVelocityY = 2;
+
+            let ball = {
+                x: boardWidth / 2,
+                y: boardHeight / 2,
+                width: ballWidth,
+                height: ballHeight,
+                velocityX: ballVelocityX,
+                velocityY: ballVelocityY
+            };
+
+            // Bricks
+            let brickArray = [];
+            let brickWidth = 50;
+            let brickHeight = 10;
+            let brickColumns = 8;
+            let brickRows = 3;
+            let brickMaxRows = 10;
+            let brickCount = 0;
+            let brickX = 15;
+            let brickY = 45;
+
+            // Game Variables
+            let score = 0;
+            let gameOver = false;
+            let lives = 3;
+            let level = 1;
+
+            window.onload = function () {
+                board = document.getElementById("board");
+                board.height = boardHeight;
+                board.width = boardWidth;
+                context = board.getContext("2d");
+
+                requestAnimationFrame(update);
+                document.addEventListener("keydown", movePlayer);
+
+                createBricks();
+            };
+
+            function update() {
+                requestAnimationFrame(update);
+                if (gameOver) return;
+
+                context.clearRect(0, 0, board.width, board.height);
+
+                // Draw player paddle
+                context.fillStyle = "lightgreen";
+                context.fillRect(player.x, player.y, player.width, player.height);
+
+                // Draw ball
+                context.fillStyle = "white";
+                ball.x += ball.velocityX;
+                ball.y += ball.velocityY;
+                context.fillRect(ball.x, ball.y, ball.width, ball.height);
+
+                // Ball collision with player paddle
+                if (topCollision(ball, player) || bottomCollision(ball, player)) {
+                    ball.velocityY *= -1;
+                } else if (leftCollision(ball, player) || rightCollision(ball, player)) {
+                    ball.velocityX *= -1;
+                }
+
+                // Ball collision with walls
+                if (ball.y <= 0) {
+                    ball.velocityY *= -1;
+                } else if (ball.x <= 0 || ball.x + ball.width >= boardWidth) {
+                    ball.velocityX *= -1;
+                } else if (ball.y + ball.height >= boardHeight) {
+                    lives--;
+                    if (lives > 0) {
+                        resetBall();
+                    } else {
+                        gameOver = true;
+                        context.font = "20px sans-serif";
+                        context.fillText("Game Over! Press 'Space' to Restart", 100, 400);
+                    }
+                }
+
+                // Draw bricks
+                context.fillStyle = "skyblue";
+                for (let i = 0; i < brickArray.length; i++) {
+                    let brick = brickArray[i];
+                    if (!brick.break) {
+                        if (topCollision(ball, brick) || bottomCollision(ball, brick)) {
+                            brick.break = true;
+                            ball.velocityY *= -1;
+                            score += 100;
+                            brickCount--;
+                        } else if (leftCollision(ball, brick) || rightCollision(ball, brick)) {
+                            brick.break = true;
+                            ball.velocityX *= -1;
+                            score += 100;
+                            brickCount--;
+                        }
+                        context.fillRect(brick.x, brick.y, brick.width, brick.height);
+                    }
+                }
+
+                // Check if level is cleared
+                if (brickCount == 0) {
+                    level++;
+                    score += 100 * brickRows * brickColumns;
+                    brickRows = Math.min(brickRows + 1, brickMaxRows);
+                    ball.velocityX *= 1.1;
+                    ball.velocityY *= 1.1;
+                    createBricks();
+                }
+
+                // Display score, lives, and level
+                context.fillStyle = "white";
+                context.font = "16px sans-serif";
+                context.fillText("Score: " + score, 10, 20);
+                context.fillText("Lives: " + lives, 10, 40);
+                context.fillText("Level: " + level, boardWidth - 80, 20);
+            }
+
+            function movePlayer(e) {
+                if (gameOver && e.code == "Space") {
+                    resetGame();
+                    return;
+                }
+
+                if (e.code == "ArrowLeft") {
+                    let nextX = player.x - player.velocityX;
+                    if (nextX >= 0) player.x = nextX;
+                } else if (e.code == "ArrowRight") {
+                    let nextX = player.x + player.velocityX;
+                    if (nextX + player.width <= boardWidth) player.x = nextX;
+                }
+            }
+
+            function detectCollision(a, b) {
+                return (
+                    a.x < b.x + b.width &&
+                    a.x + a.width > b.x &&
+                    a.y < b.y + b.height &&
+                    a.y + a.height > b.y
+                );
+            }
+
+            function topCollision(ball, brick) {
+                return detectCollision(ball, brick) && ball.y + ball.height >= brick.y;
+            }
+
+            function bottomCollision(ball, brick) {
+                return detectCollision(ball, brick) && brick.y + brick.height >= ball.y;
+            }
+
+            function leftCollision(ball, brick) {
+                return detectCollision(ball, brick) && ball.x + ball.width >= brick.x;
+            }
+
+            function rightCollision(ball, brick) {
+                return detectCollision(ball, brick) && brick.x + brick.width >= ball.x;
+            }
+
+            function createBricks() {
+                brickArray = [];
+                for (let c = 0; c < brickColumns; c++) {
+                    for (let r = 0; r < brickRows; r++) {
+                        let brick = {
+                            x: brickX + c * brickWidth + c * 10,
+                            y: brickY + r * brickHeight + r * 10,
+                            width: brickWidth,
+                            height: brickHeight,
+                            break: false
+                        };
+                        brickArray.push(brick);
+                    }
+                }
+                brickCount = brickArray.length;
+            }
+
+            function resetBall() {
+                ball.x = boardWidth / 2;
+                ball.y = boardHeight / 2;
+                ball.velocityX = ballVelocityX;
+                ball.velocityY = ballVelocityY;
+            }
+
+            function resetGame() {
+                gameOver = false;
+                lives = 3;
+                level = 1;
+                score = 0;
+                brickRows = 3;
+                ballVelocityX = 3;
+                ballVelocityY = 2;
+                resetBall();
+                createBricks();
+            }
+        </script>
+    </body>
+</html>

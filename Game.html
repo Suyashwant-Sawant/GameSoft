@@ -1,0 +1,431 @@
+<head>
+    <title>GameSoft - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            background-image: url('Images/game background.jpg');
+            font-family: 'Verdana', sans-serif;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+
+           nav {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+        }
+
+        nav a {
+            color: #00ff00;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ff0000; 
+        }
+
+        .spin-button {
+            padding: 10px 20px;
+            background-color: #00ff00;             
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .spin-button:hover {
+            background-color: #ff0000; 
+            color: white; 
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #00ff00;
+            text-align: center;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+        }
+
+        .game-offers {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* Styles for game cards */
+        .game-card {
+            position: relative;
+            border: 1px solid #ccc;
+            padding: 20px;
+            height: 200px;
+            width: 250px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .game-card h3 {
+            color: #00ff00;
+            margin-top: 0px;
+        }
+
+        /* Special offer badge styles */
+        .special-offer {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000; /* Bright red background */
+            color: white;               /* White text */
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+         
+            .free-spin-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 50px 0; /* Margin above and below */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Light background for contrast */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .free-spin-section h2 {
+            color: #00ff00; /* Green color for the heading */
+            margin-bottom: 15px;
+        }
+
+        .free-spin-section p {
+            font-size: 1.2em; /* Slightly larger text for description */
+            margin-bottom: 20px;
+        }
+
+        .spin-result {
+            margin-top: 20px;
+            font-size: 1.5em; /* Larger text for the result */
+            color: #00ff00; /* Green color for the result */
+        }
+        .about-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 70vh; /* Takes 70% of the viewport height */
+            padding: 20px;
+            text-align: center;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: 50px auto;
+            border-radius: 10px;
+            max-width: 900px;
+        }
+
+        .about-section h2 {
+            color: #00ff00;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            font-size: 1.3em;
+            line-height: 1.8;
+        }
+
+         footer {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #00ff00; /* Green text for contrast */
+    padding: 20px;
+    text-align: center;
+    position: relative; /* Relative positioning for child elements */
+    margin-top: 30px; /* Space above the footer */
+}
+
+.footer-container {
+    max-width: 1200px; /* Limit the width for better layout */
+    margin: 0 auto; /* Center the footer */
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center align items */
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; 
+}
+
+.footer-logo img {
+    width: 100px;
+    margin-right: 10px;
+}
+
+.quick-links {
+    text-align: center; /* Center the text */
+    margin: 20px 0; /* Margin above and below */
+}
+
+.quick-links h3 {
+    color: #00ff00; /* Green color for the header */
+    margin-bottom: 10px; /* Space below the header */
+}
+
+.quick-links ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+}
+
+.quick-links li {
+    margin: 5px 0; /* Space between list items */
+}
+
+.quick-links a {
+    color: #00ff00; /* Green text for links */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease; /* Smooth transition for hover */
+}
+
+.quick-links a:hover {
+    color: #ff0000; /* Change color on hover */
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px; /* Space below social icons */
+}
+
+.social-icons a {
+    color: #00ff00;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ff0000;
+}
+
+.newsletter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newsletter input {
+    padding: 10px;
+    margin-top: 10px;
+    width: 250px;
+    border: none;
+    border-radius: 5px;
+}
+
+.newsletter button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #00ff00;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.newsletter button:hover {
+    background-color: #ff0000;
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+
+
+<nav>
+    <a href="index.html">Register</a>
+    <a href="Game.html">Home</a>
+    <a href="feedback.html">Feedback</a>
+    <button id="logoutButton" class="spin-button" onclick="logout()">Log Out</button>
+</nav>
+
+
+    <div class="container">
+        <h1>Welcome to GameSoft</h1>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for games..." onkeyup="searchGames()">
+        </div>
+
+        <!-- Game Offers Section -->
+        <div class="game-offers" id="gameOffers">
+            <div class="game-card" data-title="Flappy Bird">
+                <a href="flappy.html"><img src="Games/flappy.jpg" alt="Game 1"></a>
+                <h3>Flappy Bird </h3>
+            </div>
+            <div class="game-card" data-title="Tic-Tac-Toe">
+                <a href="Tic.html"><img src="Games/tic.jpg" alt="Game 2"></a>
+                <h3>Tic-Tac-Toe</h3>
+            </div>
+            <div class="game-card" data-title="Sudoku">
+                <a href="Sudoku.html"><img src="Games/sudoku.jpg" alt="Game 3"></a>
+                <h3>Sudoku</h3>
+            </div>
+            <div class="game-card" data-title="Snake Ladder">
+                <a href="snake.html"> <img src="Images/snake-ladder.jpg" alt="Game 4"></a>
+                <h3>Snake Ladder</h3>
+            </div>
+            <div class="game-card" data-title="Doddle Toddle">
+                <a href="doodle.html"> <img src="Images/doodlelogo.jpg" alt="Game 1"></a>
+                <h3>Doddle Toddle</h3>
+            </div>
+            <div class="game-card" data-title="2048">
+                <a href="2048.html"> <img src="Images/2048.jpg" alt="Game 2"></a>
+                <h3>2048</h3>
+            </div>
+            <div class="game-card" data-title="Connect Dots">
+                <a href="connect.html"><img src="Images/connect.png" alt="Game 3"></a>
+                <h3>Connect 4</h3>
+            </div>
+            <div class="game-card" data-title="Memory">
+                <a href="memory.html"><img src="Images/pokemonbg.jpg" alt="Game 4"></a>
+                <h3>Memory</h3>
+            </div>
+             <div class="game-card" data-title="Space Invaders">
+                 <a href="Space.html"> <img src="Images/space.jpg" alt="Game 1"></a>
+                <h3>Space Invaders</h3>
+            </div>
+            <div class="game-card" data-title="Chess">
+                <a href="chess.html"><img src="Games/Chess.jpg" alt="Game 2"></a>
+                <h3>Chess</h3>
+            </div>
+            <div class="game-card" data-title="Crazy Snake">
+               <a href="snakes.html"> <img src="Images/snake.jpg" alt="Game 3"></a>
+                <h3>Crazy Snake</h3>
+            </div>
+            <div class="game-card" data-title="Brick Break">
+               <a href="brick.html"> <img src="Images/brick.jpg" alt="Game 4"></a>
+                <h3>Brick Break</h3>
+            </div>
+             <div class="game-card" data-title="Whac a Mole">
+               <a href="mole.html"> <img src="Images/mole.jpg" alt="Game 1"></a>
+                <h3>Whac a Mole</h3>
+            </div>
+            <div class="game-card" data-title="MineSweeper">
+                <a href="minesweeper.html"><img src="Images/mine.jpg" alt="Game 2"></a>
+                <h3>Minesweeper</h3>
+            </div>
+            <div class="game-card" data-title="Sushi Party">
+                <a href="https://poki.com/en/g/sushi-party-io"><img src="Games/sushi.jpg" alt="Game 3"></a>
+                <h3>Sushi Party</h3>
+            </div>
+            <div class="game-card" data-title="Bubble shooter">
+                <a href="bubble.html"><img src="Images/bubble.jpg" alt="Game 4"></a>
+                <h3>Bubble Shooter </h3>
+            </div>
+        </div>
+    </div>
+     <div class="about-section">
+        <div>
+            <h2>About GameSoft</h2>
+            <p>Welcome to GameSoft, your premier destination for all things gaming. Whether you're looking for the latest titles, game reviews, or exclusive offers, we've got you covered. At GameSoft, we strive to deliver a one-stop platform for gamers, offering user-friendly browsing, a variety of genres, and unbeatable deals. <br><br>
+            Founded with the vision to enhance gaming experiences, GameSoft is dedicated to creating a community where gamers can explore, play, and share their passion. Stay tuned for exciting updates and special offers as we continue to bring the best in gaming right to your fingertips. Join us on this adventure!</p>
+        </div>
+    </div>
+ <footer>
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="Images/logo.jpg" alt="GameSoft Logo">
+            <div class="footer-info">
+                <p>&copy; 2024 GameSoft. All Rights Reserved.</p>
+                <p>Contact: support@gamesoft.com</p>
+            </div>
+        </div>
+
+        <div class="quick-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Register</a></li>
+                <li><a href="Game.html">Home</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+              
+            </ul>
+        </div>
+
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+
+        <div class="newsletter">
+            <p>Join Our Newsletter:</p>
+            <input type="email" placeholder="Enter your email">
+            <button>Subscribe</button>
+        </div>
+    </div>
+</footer>
+
+
+    <script>
+        function logout() {
+        sessionStorage.clear();
+        localStorage.clear();
+
+        window.location.href = "index.html";
+    }
+       function searchGames() {
+    var input = document.getElementById('searchInput');
+    var filter = input.value.toLowerCase();
+    var gameCards = document.getElementsByClassName('game-card');
+
+    for (var i = 0; i < gameCards.length; i++) {
+        var title = gameCards[i].getAttribute('data-title').toLowerCase();
+        if (title.includes(filter)) {
+            gameCards[i].style.display = '';
+        } else {
+            gameCards[i].style.display = 'none';
+        }
+    }
+}
+
+
+    </script>
+</body>
